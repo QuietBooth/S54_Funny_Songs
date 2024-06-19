@@ -4,6 +4,7 @@ const { songRouter, signUpRouter, editRouter, deleteRouter, postRouter, usersRou
 require("dotenv").config();
 const app = express();
 const PORT = 3000;
+const cors = require('cors');
 
 // Connect to MongoDB
 async function connectDatabase() {
@@ -21,6 +22,14 @@ app.use(express.json());
 app.get("/ping", (req, res) => {
     res.send("Hi");
 });
+
+app.use(cors({
+    origin: 'https://funny-songs.vercel.app', // Replace with your client's origin
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true, // Enable set cookie from the frontend
+    optionsSuccessStatus: 204
+}));
+
 
 // Connect to database route
 app.get("/", (req, res) => {
